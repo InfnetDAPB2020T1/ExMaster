@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exmaster.R
 import com.example.exmaster.apiclient.model.Card
+import kotlinx.android.synthetic.main.card_recycler_item.view.*
 
 class CardsAdapter (
     var cards: MutableList<Card>

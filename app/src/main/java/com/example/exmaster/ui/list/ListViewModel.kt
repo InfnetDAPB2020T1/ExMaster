@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.example.exmaster.adapter.CardsAdapter
 import com.example.exmaster.apiclient.ApiClient
 import com.example.exmaster.apiclient.model.Deck
 import retrofit2.Call
@@ -30,7 +31,7 @@ class ListViewModel : ViewModel() {
             override fun onResponse(call: Call<Deck>, response: Response<Deck>) {
                 val deck = response.body()
                 if (deck != null && !deck.cards.isNullOrEmpty()){
-                    // criar nossa recycler
+                    recyclerView.adapter = CardsAdapter(deck.cards!!.toMutableList())
                 } else {
                     Toast.makeText(
                         context, "Não foi encontrado nenhum card.", Toast.LENGTH_LONG
