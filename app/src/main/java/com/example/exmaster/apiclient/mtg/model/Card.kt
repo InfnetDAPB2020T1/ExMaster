@@ -1,4 +1,4 @@
-package com.example.exmaster.apiclient.model
+package com.example.exmaster.apiclient.mtg.model
 
 // Um card
 class Card (

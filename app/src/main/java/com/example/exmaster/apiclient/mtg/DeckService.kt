@@ -1,8 +1,7 @@
-package com.example.exmaster.apiclient
+package com.example.exmaster.apiclient.mtg
 
-import com.example.exmaster.apiclient.model.Card
-import com.example.exmaster.apiclient.model.CardResponse
-import com.example.exmaster.apiclient.model.Deck
+import com.example.exmaster.apiclient.mtg.model.CharacterResponse
+import com.example.exmaster.apiclient.mtg.model.Deck
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,5 +15,5 @@ interface DeckService {
         @Query("pageSize") pageSize: Int = 10): Call<Deck> // {}
 
     @GET("v1/cards/{id}")
-    fun show(@Path("id") id: String): Call<CardResponse>
+    fun show(@Path("id") id: String): Call<CharacterResponse>
 }

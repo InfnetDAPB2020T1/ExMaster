@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exmaster.R
-import com.example.exmaster.apiclient.model.Card
+import com.example.exmaster.apiclient.mtg.model.Character
 import kotlinx.android.synthetic.main.card_recycler_item.view.*
 
 class CardsAdapter (
-    var cards: MutableList<Card>
+    var cards: MutableList<Character>
 ) : RecyclerView.Adapter<CardsAdapter.CardsViewHolder>()
 {
     class CardsViewHolder(itemView: View) // layout XML
