@@ -7,8 +7,11 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.exmaster.MainViewModel
 import com.example.exmaster.adapter.CardsAdapter
+import com.example.exmaster.adapter.CharactersAdapter
 import com.example.exmaster.apiclient.mtg.MarvelApiClient
+import com.example.exmaster.apiclient.mtg.model.Character
 import com.example.exmaster.apiclient.mtg.model.CharacterResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +23,7 @@ class ListViewModel : ViewModel() {
         recyclerView: RecyclerView,
         context: Context,
         pgrBarListCards: ProgressBar,
+        callback: (Character) -> Unit,
         offset: Int = 0,
         heroName: String? = null
     ){
@@ -27,6 +31,7 @@ class ListViewModel : ViewModel() {
         val call = if (heroName != null)
             MarvelApiClient.getMarvelCharacterService().showByName(heroName, offset)
             else MarvelApiClient.getMarvelCharacterService().all(offset)
+
         call.enqueue(object : Callback<CharacterResponse> {
             override fun onFailure(call: Call<CharacterResponse>, t: Throwable) {
 //                pgrBarListCards.visibility = View.GONE
@@ -40,7 +45,10 @@ class ListViewModel : ViewModel() {
                     characterResponse != null
                     && !characterResponse.data?.results.isNullOrEmpty()){
                     recyclerView.adapter =
-                        CardsAdapter(characterResponse.data?.results!!.toMutableList())
+                        CharactersAdapter(
+                            characterResponse.data?.results!!.toMutableList(),
+                            callback
+                        )
                     recyclerView.layoutManager = LinearLayoutManager(context)
                 } else {
                     Toast.makeText(

@@ -10,7 +10,8 @@ import com.example.exmaster.apiclient.mtg.model.Character
 import kotlinx.android.synthetic.main.character_recycler_item.view.*
 
 class CharactersAdapter (
-    var characters: MutableList<Character>
+    var characters: MutableList<Character>,
+    var callback: (Character) -> Unit
 ) : RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>()
 {
     class CharacterViewHolder(itemView: View) // layout XML
@@ -28,6 +29,10 @@ class CharactersAdapter (
                 false
             )
         val cardsViewHolder = CharacterViewHolder(view)
+        cardsViewHolder.itemView.setOnClickListener {
+            val character = characters[cardsViewHolder.adapterPosition]
+            callback(character)
+        }
         return cardsViewHolder
     }
 
@@ -36,6 +41,6 @@ class CharactersAdapter (
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val character = characters[position]
         holder.txtVwName.text = character.name
-
+        // Exibir a imagem do personagem
     }
 }
